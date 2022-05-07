@@ -72,8 +72,9 @@ module.exports = {
     hot: false,
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8887/api/', // http://124.222.94.149:8887/api/    http://127.0.0.1:8887/api/  https://lianghj.top:8888/api/private/v1/
+        target: 'http://124.222.94.149:8887/api/', // http://124.222.94.149:8887/api/    http://127.0.0.1:8887/api/  https://lianghj.top:8888/api/private/v1/
         changeOrigin: true,
+        ws: true,
         pathRewrite: {
           '^/api': ''
         }

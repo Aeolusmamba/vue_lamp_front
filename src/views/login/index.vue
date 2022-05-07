@@ -110,7 +110,7 @@ $cursor: #fff;
 
       input {
         background: transparent;
-        border: 0px;
+        border: none;
         outline: none;
         -webkit-appearance: none;
         border-radius: 0px;
@@ -182,4 +182,5 @@ $cursor: #fff;
     user-select: none;
   }
 }
+.el-input input{border:none;}
 </style>
