@@ -34,7 +34,7 @@
         <div class="contaier">
           远程控制模式
           <el-switch
-            v-bind:value="maStatus.remote"
+            v-bind:value="store.getters.remote"
             @input="(e)=>modelOnHandle(e, 'remote')"
             active-color="#13ce66"
             inactive-color="#ccc"
@@ -48,7 +48,7 @@
             @input="(e)=>modelOnHandle(e, 'opened')"
             active-color="#13ce66"
             inactive-color="#ccc"
-            :disabled="!maStatus.connected || !maStatus.remote"
+            :disabled="!maStatus.connected || !store.getters.remote"
           />
         </div>
       </div>
@@ -59,16 +59,21 @@
 <script setup>
 import { connectStatus, connectAction } from '../../api/connent.ts'
 import { onMounted, ref } from 'vue'
+import { useStore } from 'vuex'
+let timer = null
+const store = useStore()
 /*eslint-disable*/
 const modelOnHandle = async (e , type)=>{
   let command = 0
   if(type === 'remote'){
     if(e){
       command = 1
-      maStatus.value.remote = true
+      store.commit('app/remoteSetting' , true)
+      clearInterval(timer)
     }else{
       command = 0
-      maStatus.value.remote = false
+      store.commit('app/remoteSetting' , false)
+      createTimer()
     }
   }else if(type === 'opened'){
     if(e){
@@ -89,16 +94,20 @@ const maStatus = ref({
         connected: false,     //硬件是否连接
         opened: false,
         times: 0,
-        remote: false
+        remote: store.getters.remote
       })
-onMounted(async () => {
-      setInterval(async()=>{
+const createTimer =  async ()=>{
+  timer = setInterval(async()=>{
         const status = await connectStatus()
+        if(!status) return
         const keys = Object.keys(status)
         for(let key  of keys){
           maStatus.value[key] = status[key]
         }
-      },5000)
+      },2000)
+}     
+onMounted(async () => {
+      createTimer()
     })
 </script>
 
@@ -120,6 +129,7 @@ onMounted(async () => {
     .connect_status , .connect_action{
       width: 230px;
       height: auto;
+      border: 1px solid black;
       .status_header{
         height: 50px;
         line-height: 50px;

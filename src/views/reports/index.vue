@@ -31,8 +31,8 @@ import {setChatData} from "./utils"
         const fetchData = async()=>{
           const deviceStatus = await fetchDeviceStatus()
         const devicePower = await fetchDevicePower()
+        if(!deviceStatus || !devicePower) return
         const chatsData = setChatData(deviceStatus.reportList || [] , devicePower.powerList || [])
-        console.log('chatsData----->' , chatsData)
         const {dengChatData , powerChatData , lightChatData , temChatData , humidityChatData} = chatsData
         powerChatOption.xAxis.data = powerChatData.x
         powerChatOption.series[0].data = powerChatData.y
@@ -52,7 +52,7 @@ import {setChatData} from "./utils"
         await fetchData()
         setInterval(async() => {
           await fetchData()
-        }, 5000);
+        }, 2000);
       })
     }
   }
@@ -73,7 +73,7 @@ import {setChatData} from "./utils"
       flex: 1;
       justify-content: space-between;
       #reports_sheet_polyline_light , #reports_sheet_polyline_tem , #reports_sheet_polyline_deng , #reports_sheet_polyline_humidity{
-        width: 400px;
+        width: 500px;
         height: 400px;
         padding: 0px 40px;
     }

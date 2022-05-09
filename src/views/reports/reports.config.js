@@ -24,7 +24,7 @@ export const powerChatOption = {
       data: []
     },
     yAxis: {
-      name: '-1代表关灯,1代表开灯'
+      name: '-1关灯,1开灯'
     },
     series: [
       {
@@ -103,8 +103,8 @@ export const powerChatOption = {
         startAngle: 200,
         endAngle: -20,
         min: 0,
-        max: 60,
-        splitNumber: 12,
+        max: 100,
+        splitNumber: 20,
         itemStyle: {
           color: '#FFAB91'
         },

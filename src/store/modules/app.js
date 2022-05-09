@@ -5,7 +5,8 @@ export default {
   state: () => ({
     token: localStorage.getItem('token') || '',
     siderType: true,
-    lang: localStorage.getItem('lang') || 'zh'
+    lang: localStorage.getItem('lang') || 'zh',
+    remote: false
   }),
   mutations: {
     setToken(state, token) {
@@ -17,6 +18,10 @@ export default {
     },
     changeLang(state, lang) {
       state.lang = lang
+    },
+    // 设置远程状态
+    remoteSetting(state, status) {
+      state.remote = status
     }
   },
   actions: {
