@@ -28,7 +28,8 @@ import {setChatData} from "./utils"
         const lightChat = echarts.init(document.getElementById('reports_sheet_polyline_light'))
         const temChat = echarts.init(document.getElementById('reports_sheet_polyline_tem'))
         const humidityChat = echarts.init(document.getElementById('reports_sheet_polyline_humidity'))
-        const deviceStatus = await fetchDeviceStatus()
+        const fetchData = async()=>{
+          const deviceStatus = await fetchDeviceStatus()
         const devicePower = await fetchDevicePower()
         const chatsData = setChatData(deviceStatus.reportList || [] , devicePower.powerList || [])
         console.log('chatsData----->' , chatsData)
@@ -47,6 +48,11 @@ import {setChatData} from "./utils"
         temChat.setOption(temChatOption)
         humidityChatOption.series[0].data[0].value = humidityChatData.y.pop()
         humidityChat.setOption(humidityChatOption)
+        }
+        await fetchData()
+        setInterval(async() => {
+          await fetchData()
+        }, 5000);
       })
     }
   }

@@ -23,7 +23,11 @@ export const setChatData = (deviceStatus, devicePower) => {
         }
         for (const item of dataSet[0]) {
           dengChatData.x.push(item.xAxis)
-          dengChatData.y.push(item.yAxis)
+          if (item.yAxis === 0) {
+            dengChatData.y.push(item.yAxis - 1)
+          } else {
+            dengChatData.y.push(item.yAxis)
+          }
         }
         for (const item of dataSet[1]) {
           lightChatData.x.push(item.xAxis)

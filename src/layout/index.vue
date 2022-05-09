@@ -1,6 +1,7 @@
 <template>
   <el-container class="app-wrapper">
     <el-aside width="205px" class="sidebar-container">
+      <div class="title">智能灯控平台</div>
       <Menu />
     </el-aside>
     <el-container class="container">
@@ -20,6 +21,11 @@ import Headers from './headers'
 </script>
 
 <style lang="scss" scoped>
+.title.title.title{
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 18px;
+}
 .app-container {
   position: relative;
   width: 100%;

@@ -10,7 +10,6 @@
     </el-container>
   </div>
 </template>
-
 <style lang="scss">
 .el-input__wrapper.el-input__wrapper.el-input__wrapper{
   background-color: transparent;
@@ -20,4 +19,11 @@
 .el-container{
   height: 100vh;
 }
+  .el-aside.el-aside.el-aside{
+  background-color: #2d3a4b;
+}
+.el-main.el-main.el-main{
+  --el-main-padding:0px;
+}
+
 </style>

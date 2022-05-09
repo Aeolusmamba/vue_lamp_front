@@ -1,12 +1,14 @@
 <template>
   <div class="connect">
     <div class="connect_con">
+      <div class="connect_img"></div>
       <div class="connect_status">
         <div class="status_header">
           设备运行状态
         </div>
         <div :class="{
           'contaier':true,
+          'connect_is_off':!maStatus.connected,
           'connect_is_on': maStatus.connected,
         }">硬件已{{
           maStatus.connected ? '连接':"断开"
@@ -90,33 +92,41 @@ const maStatus = ref({
         remote: false
       })
 onMounted(async () => {
-      const status = await connectStatus()
-      const keys = Object.keys(status)
-      for(let key  of keys){
-         maStatus.value[key] = status[key]
-      }
+      setInterval(async()=>{
+        const status = await connectStatus()
+        const keys = Object.keys(status)
+        for(let key  of keys){
+          maStatus.value[key] = status[key]
+        }
+      },5000)
     })
 </script>
 
 <style lang="scss" scoped>
 .connect{
-  width: 600px;
+  width: 1000px;
   height: 500px;
   padding: 80px 50px;
   margin: auto auto;
   .connect_con{
     display: flex;
     justify-content: space-between;
+    .connect_img{
+      width: 320px;
+      background-image: url(../../assets/illustration.png);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+    }
     .connect_status , .connect_action{
       width: 230px;
       height: auto;
-      border: 1px solid black;
       .status_header{
         height: 50px;
         line-height: 50px;
         font-size: 24px;
         font-weight: 600;
         text-align: center;
+        color: #000;
         border-bottom: 2px solid black;
       }
       .contaier{
@@ -129,17 +139,21 @@ onMounted(async () => {
       }
     }
     .connect_status{
+      color: #fff;
+      .connect_is_off{
+        background-color: #708090;
+      }
       .connect_is_on{
-        border: 1px solid skyblue;
+        background-color: #1E90FF;
       }
       .pop_btn{
-        background-color: #ccc;
+        background-color: #708090;
       }
       .pop_is_on{
-        background-color: palevioletred;
+        background-color: #DB7093;
       }
       .active_time{
-        background-color: orangered;
+        background-color: #FFA500;
       }
     }
     .connect_action{

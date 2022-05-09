@@ -2,6 +2,7 @@
   <div class="login-container">
     <el-form ref="formRef" :model="form" class="login-form" :rules="rules">
       <div class="title-container">
+        <h2 class="title">教室灯节能系统</h2>
         <h3 class="title">{{ $t('login.title') }}</h3>
       </div>
       <el-form-item prop="username">
@@ -81,7 +82,6 @@ $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
 $cursor: #fff;
-
 .login-container {
   min-height: 100%;
   width: 100%;
@@ -92,8 +92,8 @@ $cursor: #fff;
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
+    padding: 60px 35px 0;
+    margin-left: calc(50vw - 460px);
     overflow: hidden;
 
     ::v-deep .el-form-item {
@@ -182,5 +182,4 @@ $cursor: #fff;
     user-select: none;
   }
 }
-.el-input input{border:none;}
 </style>
