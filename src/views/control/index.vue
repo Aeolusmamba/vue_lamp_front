@@ -97,6 +97,7 @@ const maStatus = ref({
         remote: store.getters.remote
       })
 const createTimer =  async ()=>{
+  if(timer) clearInterval(timer)
   timer = setInterval(async()=>{
         const status = await connectStatus()
         if(!status) return
@@ -104,7 +105,7 @@ const createTimer =  async ()=>{
         for(let key  of keys){
           maStatus.value[key] = status[key]
         }
-      },2000)
+      },1000)
 }     
 onMounted(async () => {
       createTimer()
