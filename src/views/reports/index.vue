@@ -14,11 +14,12 @@
 
 <script>
 import * as echarts from 'echarts'
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import { fetchDeviceStatus, fetchDevicePower } from '../../api/reports'
 /*eslint-disable*/
 import { powerChatOption , dengChatOption ,lightChatOption ,temChatOption , humidityChatOption} from './reports.config'
 import {setChatData} from "./utils"
+let timer = null
   export default {
     setup() {
       onMounted(async () => {
@@ -50,10 +51,13 @@ import {setChatData} from "./utils"
         humidityChat.setOption(humidityChatOption)
         }
         await fetchData()
-        setInterval(async() => {
+        timer = setInterval(async() => {
           await fetchData()
         }, 2000);
       })
+      onUnmounted(()=>{
+      clearInterval(timer)
+    })
     }
   }
 </script>

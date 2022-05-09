@@ -58,7 +58,7 @@
 
 <script setup>
 import { connectStatus, connectAction } from '../../api/connent.ts'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
 let timer = null
 const store = useStore()
@@ -100,6 +100,7 @@ const createTimer =  async ()=>{
   if(timer) clearInterval(timer)
   timer = setInterval(async()=>{
         const status = await connectStatus()
+        console.log('status' , status)
         if(!status) return
         const keys = Object.keys(status)
         for(let key  of keys){
@@ -109,6 +110,9 @@ const createTimer =  async ()=>{
 }     
 onMounted(async () => {
       createTimer()
+    })
+    onUnmounted(()=>{
+      clearInterval(timer)
     })
 </script>
 
